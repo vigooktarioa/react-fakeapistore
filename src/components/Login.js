@@ -6,24 +6,26 @@ import axios from "axios";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
     // const {error, setError} = useState("");
 
-    const loginHandler = ({token, setToken}) => {
+    const loginHandler = (event) => {
+        // To prevent default action (in this case refreshing the page)
+        event.preventDefault();
+
         axios({
-        url: "https://fakestoreapi.com/auth/login",
-        method: "POST",
-        data: {
-            username: username,
-            password: password,
-        },
-    })
-    .then((res) => {
-        console.log(res.data.token);
-        setToken(res.data.token);
-    })
-    .catch((err) => {
-        console.log(err);;
-    });
+            url: "https://fakestoreapi.com/auth/login",
+            method: "POST",
+            data: {
+                username: username,
+                password: password,
+            },
+        }).then((res) => {
+            console.log(res.data.token);
+            setToken(res.data.token);
+        }).catch((err) => {
+            console.log(err);
+        });
     };
 
   return (
