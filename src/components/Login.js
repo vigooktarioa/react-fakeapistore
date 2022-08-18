@@ -3,14 +3,13 @@ import '../App.css'
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({token, setToken}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [token, setToken] = useState("");
     // const {error, setError} = useState("");
 
-    const loginHandler = () => {
-
+    const loginHandler = (event) => {
+        event.preventDefault();
 
         axios({
             url: "https://fakestoreapi.com/auth/login",
@@ -27,8 +26,6 @@ const Login = () => {
         }).catch((err) => {
             console.log(err);
         });
-
-        Promise.all(loginHandler);
     };
 
 
