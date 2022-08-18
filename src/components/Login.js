@@ -6,25 +6,32 @@ import axios from "axios";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
     // const {error, setError} = useState("");
 
-    const loginHandler = ({token, setToken}) => {
+    const loginHandler = () => {
+
+
         axios({
-        url: "https://fakestoreapi.com/auth/login",
-        method: "POST",
-        data: {
-            username: username,
-            password: password,
-        },
-    })
-    .then((res) => {
-        console.log(res.data.token);
-        setToken(res.data.token);
-    })
-    .catch((err) => {
-        console.log(err);;
-    });
+            url: "https://fakestoreapi.com/auth/login",
+            method: "POST",
+            data: {
+                username: username,
+                password: password,
+            },
+        }).then((res) => {
+            console.log(res.data.token);
+            setToken(res.data.token);
+            localStorage.setItem("userToken", res.data.token);
+            localStorage.setItem("token", res.data.token);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        Promise.all(loginHandler);
     };
+
+
 
   return (
     <div className="login">
